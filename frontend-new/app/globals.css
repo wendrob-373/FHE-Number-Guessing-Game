@@ -1,0 +1,421 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Modern gradient background with animated particles */
+.game-container {
+  position: relative;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+  background-size: 400% 400%;
+  animation: gradient-shift 20s ease infinite;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.game-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(79, 172, 254, 0.3) 0%, transparent 50%);
+  animation: particle-float 15s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes particle-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translate(30px, -30px) scale(1.1);
+    opacity: 0.4;
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+    opacity: 0.35;
+  }
+}
+
+/* Glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(30px) saturate(200%);
+  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.5);
+}
+
+/* Modern number grid */
+.number-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 0.75rem;
+  max-width: 100%;
+  justify-items: center;
+}
+
+@media (min-width: 640px) {
+  .number-grid {
+    grid-template-columns: repeat(8, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .number-grid {
+    gap: 1.25rem;
+  }
+}
+
+.number-button {
+  @apply relative rounded-xl sm:rounded-2xl border-2 transition-all duration-300 flex items-center justify-center font-bold;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 640px) {
+  .number-button {
+    width: 4rem;
+    height: 4rem;
+    font-size: 1.125rem;
+  }
+}
+
+.number-button:hover:not(:disabled) {
+  transform: translateY(-4px) scale(1.05);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.number-button:active:not(:disabled) {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.number-button.selected {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.8), rgba(139, 92, 246, 0.8));
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.6), 0 8px 25px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1);
+  animation: selected-pulse 2s ease-in-out infinite;
+}
+
+.number-button.correct {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.9), rgba(16, 185, 129, 0.9));
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.8), 0 8px 25px rgba(0, 0, 0, 0.3);
+  animation: correct-glow 2s ease-in-out infinite;
+}
+
+.number-button.incorrect {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: rgba(239, 68, 68, 0.5);
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: scale(0.95);
+}
+
+@keyframes selected-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.6), 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.9), 0 8px 30px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@keyframes correct-glow {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.8), 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(34, 197, 94, 1), 0 8px 30px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Modern card animations */
+.card-enter {
+  animation: card-fade-in 0.5s ease-out;
+}
+
+@keyframes card-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glow effects */
+.glow-blue {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.5), 0 0 40px rgba(99, 102, 241, 0.3);
+}
+
+.glow-green {
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.5), 0 0 40px rgba(34, 197, 94, 0.3);
+}
+
+.glow-yellow {
+  box-shadow: 0 0 20px rgba(234, 179, 8, 0.5), 0 0 40px rgba(234, 179, 8, 0.3);
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* ============================================
+   Enhanced Glassmorphism Styles
+   ============================================ */
+
+/* Glass Card - 标准玻璃态卡片 */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Glass Input - 玻璃态输入框 */
+.glass-input {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px) saturate(160%);
+  -webkit-backdrop-filter: blur(15px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 4px 16px 0 rgba(31, 38, 135, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 4px 20px 0 rgba(99, 102, 241, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+
+/* Glass Button - 玻璃态按钮 */
+.glass-button {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.glass-button:hover::before {
+  left: 100%;
+}
+
+/* Glass Button with Gradient Border */
+.glass-button-gradient {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-button-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.8),
+    rgba(139, 92, 246, 0.8),
+    rgba(236, 72, 153, 0.8)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+/* Glass Container - 玻璃态背景容器 */
+.glass-container {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(30px) saturate(200%);
+  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Glass Reflection Layer - 玻璃反射层 */
+.glass-reflection {
+  position: relative;
+}
+
+.glass-reflection::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 100%
+  );
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Neon Gradient Background - 霓虹渐变背景 */
+.neon-gradient {
+  background: linear-gradient(
+    135deg,
+    #667eea 0%,
+    #764ba2 25%,
+    #f093fb 50%,
+    #4facfe 75%,
+    #00f2fe 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 20s ease infinite;
+}
+
+/* Decrypting Animation - 解密动画 */
+@keyframes decrypting-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.decrypting {
+  animation: decrypting-pulse 1.5s ease-in-out infinite;
+}
+
+/* Win Modal Glow - 获胜弹窗光晕 */
+@keyframes win-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(34, 197, 94, 0.5),
+      0 0 40px rgba(34, 197, 94, 0.3),
+      0 0 60px rgba(34, 197, 94, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px rgba(34, 197, 94, 0.8),
+      0 0 60px rgba(34, 197, 94, 0.5),
+      0 0 90px rgba(34, 197, 94, 0.3);
+  }
+}
+
+.win-glow {
+  animation: win-glow 2s ease-in-out infinite;
+}
+
+/* Horizontal Scroll for Mobile - 移动端横向滚动 */
+.horizontal-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 1rem;
+  padding: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.horizontal-scroll > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}

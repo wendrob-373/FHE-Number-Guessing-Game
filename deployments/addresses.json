@@ -1,0 +1,16 @@
+{
+  "network": "sepolia",
+  "chainId": 11155111,
+  "deployer": "0x5C48431C365E7FA3C997eABdE5Ecd0077983985A",
+  "contracts": {
+    "NumberGuessingGame": "0x522e49f4f3cD3963d4C62fb7a67433ddC0a55E42"
+  },
+  "config": {
+    "guessCost": "100000000000000",
+    "rewardAmount": "100000000000000",
+    "freeAttempts": "3",
+    "numberRange": "32",
+    "treasuryBalance": "10000000000000000"
+  },
+  "deployedAt": "2025-11-22T08:47:41.234Z"
+}

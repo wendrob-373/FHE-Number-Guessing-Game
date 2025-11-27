@@ -1,0 +1,26 @@
+{
+  "name": "fhe-number-guessing-game",
+  "version": "1.0.0",
+  "description": "Number Guessing Game with FHEVM Encrypted Comparisons",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy:sepolia": "hardhat run deployments/deploy.js --network sepolia",
+    "deploy:localhost": "hardhat run deployments/deploy.js --network localhost",
+    "dev": "cd frontend && npm run dev",
+    "test": "hardhat test"
+  },
+  "keywords": ["fhevm", "game", "blockchain", "encryption"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.26.0",
+    "@fhevm/hardhat-plugin": "^0.3.0-1",
+    "@zama-fhe/relayer-sdk": "^0.3.0-5"
+  },
+  "dependencies": {
+    "@fhevm/solidity": "^0.9.1",
+    "@openzeppelin/contracts": "^5.0.0",
+    "dotenv": "^16.4.5"
+  }
+}
